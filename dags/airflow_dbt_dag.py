@@ -15,11 +15,21 @@ from airflow.operators.bash_operator import BashOperator
     tags=["example"],
 )
 def airflow_dbt_dag():
-    dbt_run = BashOperator(
-        task_id="dbt_run",
-        bash_command="cd ~/dbt-intro && dbt run",
+    citybike_trips_bronze = BashOperator(
+        task_id="citybike_trips_bronze",
+        bash_command="cd ~/dbt-intro && dbt run -s citybike_trips_bronze",
     )
 
-    dbt_run
+    citybike_trips_silver = BashOperator(
+        task_id="citybike_trips_silver",
+        bash_command="cd ~/dbt-intro && dbt run -s citybike_trips_silver",
+    )
+
+    citybike_trips_gold = BashOperator(
+        task_id="citybike_trips_gold",
+        bash_command="cd ~/dbt-intro && dbt run -s citybike_trips_gold",
+    )
+
+    citybike_trips_bronze >> citybike_trips_silver >> citybike_trips_gold
 
 airflow_dbt_dag()
