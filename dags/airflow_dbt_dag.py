@@ -17,7 +17,7 @@ from airflow.operators.bash_operator import BashOperator
 def airflow_dbt_dag():
     dbt_run = BashOperator(
         task_id="dbt_run",
-        bash_command="mkdir dbt && cp -r ~/Documents/DataEngineerProject/dbt-intro/dbt-intro ./dbt && pwd",
+        bash_command="cd ~/dbt-intro && dbt run",
     )
 
     dbt_run
