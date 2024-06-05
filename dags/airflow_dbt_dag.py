@@ -23,4 +23,3 @@ def airflow_dbt_dag():
     dbt_run
 
 airflow_dbt_dag()
-
