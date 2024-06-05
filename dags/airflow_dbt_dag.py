@@ -30,6 +30,12 @@ def airflow_dbt_dag():
         bash_command="cd ~/dbt-intro && dbt run -s citybike_trips_gold",
     )
 
-    citybike_trips_bronze >> citybike_trips_silver >> citybike_trips_gold
+    my_fourth_dbt_model = BashOperator(
+        task_id="my_fourth_dbt_model_task",
+        bash_command="cd ~/dbt-intro && dbt run -s my_fourth_dbt_model",
+    )
+
+    citybike_trips_bronze >> citybike_trips_silver >> citybike_trips_gold >> my_fourth_dbt_model
+
 
 airflow_dbt_dag()
