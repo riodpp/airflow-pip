@@ -35,7 +35,13 @@ def airflow_dbt_dag():
         bash_command="cd ~/dbt-intro && dbt run -s my_fourth_dbt_model",
     )
 
+    san_francisco_bikeshare_task = BashOperator(
+        task_id="san_francisco_bikeshare_task",
+        bash_command="cd ~/dbt-intro && dbt run -s stg_san_francisco_bikeshare__bikeshare_trips",
+    )
+
     citybike_trips_bronze >> citybike_trips_silver >> citybike_trips_gold >> my_fourth_dbt_model
 
+    san_francisco_bikeshare_task >> my_fourth_dbt_model
 
 airflow_dbt_dag()
